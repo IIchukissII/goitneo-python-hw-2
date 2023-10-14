@@ -9,14 +9,15 @@ class ContactNameError(Exception):
 def input_error(func):
     def inner(*args, **kwargs):
         try:
-            name, phone = args[0]
-            if not phone.isdigit():
-                raise TelNumberError("Telephone number should be a number")
-            if not name.isalpha():
-                raise ContactNameError("Name should not be a number")
+            if 'add_contact' in func.__name__:
+                name, phone = args[0]
+                if not phone.isdigit():
+                    raise TelNumberError("Telephone number should be a number")
+                if not name.isalpha():
+                    raise ContactNameError("Name should not be a number")
             return func(*args, **kwargs)
         except ValueError:
-            return "Give me name and phone please."
+            return "Please provide a name and phone number."
         except TelNumberError as e:
             return f"Exception occurred: {e}"
         except ContactNameError as e:
@@ -36,7 +37,7 @@ def add_contact(args, contacts):
     contacts[name] = phone
     return f'Contact {name} with phone number: {phone} added.'
 
-
+@input_error
 def show_phone(args, contacts):
     name = args[0][0]
     if name in contacts:
