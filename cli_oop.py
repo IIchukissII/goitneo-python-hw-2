@@ -17,7 +17,7 @@ class Name(Field):
 
 class Phone(Field):
     def __init__(self, number):
-        if len(str(number)) == 10:
+        if len(number.isdigit()) == 10:
             self.value = number
         else:
             raise ValueError("Phone number should have 10 digits")
