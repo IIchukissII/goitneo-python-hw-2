@@ -58,7 +58,7 @@ class Record:
         
 
     def __str__(self):
-        return f"Contact name: {self.name.value}, phones: {'; '.join(str(phone) for phone in self.phones)}"
+        return f"Contact name: {self.name.value}, phones: {'; '.join(phone.value for phone in self.phones)}"
     
 
 class AddressBook(UserDict):
